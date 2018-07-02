@@ -6,6 +6,7 @@ namespace PizzaStore.Library
 {
     public class Address
     {
+
         public string Street;
         public string City;
         public string State;

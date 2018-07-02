@@ -4,11 +4,10 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class User
+    public class User
     {
-        public string FirstName;
-        public string LastName;
-        public Address defaultLocation;
-        public 
+        public string Name;
+        public int selectedLocation = 0;
+        public int defaultLocation = 0;
     }
 }

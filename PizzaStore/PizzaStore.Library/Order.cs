@@ -4,7 +4,14 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class Order
+    public class Order
     {
+        public Address orderAddress;
+        public User user;
+        public DateTime orderTime;
+        public bool upToTwelve;
+        public bool upToFiveHundredDollars;
+
+
     }
 }

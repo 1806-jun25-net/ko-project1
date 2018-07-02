@@ -4,7 +4,11 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class Location
+    public class Location
     {
+        public Dictionary<string, int> inventory = new Dictionary<string, int>();
+        public IEnumerable<Order> orderHistory;
+
     }
+
 }
