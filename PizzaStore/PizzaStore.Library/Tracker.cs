@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class Database
+    public class Tracker
     {
+        public static Dictionary<string, User> db = new Dictionary<string, User>();
     }
 }
