@@ -6,8 +6,8 @@ namespace PizzaStore.Library
 {
     public class User
     {
-        public string Name;
-        public int selectedLocation = 0;
-        public int defaultLocation = 0;
+        public string Name { get; set; }
+        public int SelectedLocation { get; set; } = 0;
+        public int DefaultLocation { get; set; } = 0;
     }
 }
