@@ -13,7 +13,10 @@ namespace PizzaStore.Library
         public static Location FourthLocation { get; set; } = new Location(4);
         public static Location FifthLocation { get; set; } = new Location(5);
 
-        
+        // A dictionary of users based on the key value name
+        public static Dictionary<string, User> UserDict { get; set; } = new Dictionary<string, User>();
+
+
 
         public static List<Location> LocationList = new List<Location>()
         {

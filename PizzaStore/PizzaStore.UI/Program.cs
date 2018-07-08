@@ -44,9 +44,9 @@ namespace PizzaStore.UI
             Location PreferredLocation = Master.LocationList[int.Parse(answer) - 1];
             string toPrint;
             //If user exists already:
-            if (PreferredLocation.UserDict.ContainsKey(name))
+            if (Master.UserDict.ContainsKey(name))
             {
-                User u = PreferredLocation.UserDict[name];
+                User u = Master.UserDict[name];
                 if (u.DefaultLocation != PreferredLocation)
                 {
                     Console.WriteLine($"Your default location is {u.DefaultLocation.LocationID}. Would you like to change it to {PreferredLocation.LocationID}? [y/n]");
@@ -69,7 +69,7 @@ namespace PizzaStore.UI
                     SelectedLocation = PreferredLocation
                     
                 };
-                PreferredLocation.UserDict.Add(name, u);
+                Master.UserDict.Add(name, u);
                 toPrint = OrderHandler.BeginOrder(name, u, PreferredLocation);
             }
             Console.WriteLine(toPrint);

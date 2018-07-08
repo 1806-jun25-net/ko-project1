@@ -32,9 +32,6 @@ namespace PizzaStore.Library
         // A history of orders
         public List<Order> OrderHistory { get; set; } = new List<Order>();
 
-        // A dictionary of users based on the key value name
-        public Dictionary<string, User> UserDict { get; set; } = new Dictionary<string, User>();
-
 
 
         //Helper Method

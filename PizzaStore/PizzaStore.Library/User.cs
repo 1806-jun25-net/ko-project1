@@ -10,7 +10,7 @@ namespace PizzaStore.Library
         public string LastName { get; set; }
         public string Name { get; set; }
         public Location DefaultLocation { get; set; }
-        public Location SelectedLocation { get; set; } = 0;
+        public Location SelectedLocation { get; set; }
 
         //First name + Last name to make it into full name
         public static string FirstandLastName(string fn, string ln)
