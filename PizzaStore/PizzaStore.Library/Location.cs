@@ -12,21 +12,53 @@ namespace PizzaStore.Library
         public Location(int i)
         {
             LocationID = i;
+            Inventory.Add("Pepperoni", 1);
+            Inventory.Add("Chicken", 7);
+            Inventory.Add("Ham", 7);
+            Inventory.Add("Sausage", 7);
+            Inventory.Add("Mushroom", 7);
+            Inventory.Add("Onion", 7);
+            Inventory.Add("Pineapple", 7);
+            Inventory.Add("Jalapeno", 7);
+            Inventory.Add("Olive", 7);
+            Inventory.Add("Tomato", 7);
         }
 
+        public List<string> Toppings = new List<string> { "Pepperoni", "Chicken", "Ham", "Sausage", "Mushroom", "Onion", "Pineapple", "Jalapeno", "Olive", "Tomato" };
+
         // An inventory of the store
-        public Dictionary<string, int> Inventory = new Dictionary<string, int>();
+        public Dictionary<string, int> Inventory { get; set; } = new Dictionary<string, int>();
 
         // A history of orders
-        public static List<Order> OrderHistory = new List<Order>();
+        public List<Order> OrderHistory { get; set; } = new List<Order>();
 
         // A dictionary of users based on the key value name
-        public Dictionary<string, User> UserDict = new Dictionary<string, User>();
+        public Dictionary<string, User> UserDict { get; set; } = new Dictionary<string, User>();
 
 
 
         //Helper Method
-        public static List<Order> OrderHistoryByUser(List<Order> orderhist, string name)
+        public bool UserExistInOrderHistory(List<Order> orderhistory, string name)
+        {
+            if (orderhistory == null)
+            {
+                return false;
+            }
+            else
+            {
+                for (var i = 0; i < orderhistory.Count; i++)
+                {
+                    if (orderhistory[i].User.Name == name)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        //Helper Method
+        public List<Order> OrderHistoryByUser(List<Order> orderhist, string name)
         {
             //Looping through the list and inserting orders by the user into the new list and outputting that
             List<Order> result = new List<Order>();
@@ -43,18 +75,18 @@ namespace PizzaStore.Library
 
 
         //Using LINQ to sort??
-        public static List<Order> SortOrderHistory(List<Order> orderhist, string whichsort)
+        public List<Order> SortOrderHistory(List<Order> orderhist, string whichsort)
         {
             if (whichsort == "most expensive")
             {
                 return (from item in orderhist
-                        orderby item.price descending
+                        orderby item.Price descending
                         select item).ToList();
             }
             else if (whichsort == "least expensive")
             {
                 return (from item in orderhist
-                        orderby item.price ascending
+                        orderby item.Price ascending
                         select item).ToList();
             }
             else if (whichsort == "earliest")
@@ -74,17 +106,6 @@ namespace PizzaStore.Library
                 return null;
             }
         }
-
-
-
-        //If the LINQ doesn't work - A modified version of the Quick Sort algorithm to sort the Order History
-        public List<Order> QuickSortForOrderHistory(List<Order> orderhistory, string condition)
-        {
-            return orderhistory;
-        }
-
-
-
     }
 
 }

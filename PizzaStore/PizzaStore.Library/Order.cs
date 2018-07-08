@@ -8,9 +8,9 @@ namespace PizzaStore.Library
     {
         public User User { get; set; }
         public DateTime OrderTime { get; set; }
-        public double price { get; set; } = 0;
-        public bool UpToTwelve = false;
-        public bool UpToFiveHundredDollars = false;
+        public List<Pizza> PizzaList { get; set; } = new List<Pizza>();
+        public double Price { get; set; } = 0;
+        public int NumPizza { get; set; } = 0;
     }
 
 }

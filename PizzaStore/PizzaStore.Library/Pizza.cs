@@ -4,9 +4,10 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class Pizza
+    public class Pizza
     {
         public string PizzaSize { get; set; }
-        public string[] Toppings { get; set; }
+        public List<string> Toppings { get; set; } = new List<string>();
+        public double Price { get; set; }
     }
 }

@@ -6,13 +6,22 @@ namespace PizzaStore.Library
 {
     public class User
     {
-        public string Name;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Name { get; set; }
+        public Location DefaultLocation { get; set; }
+        public Location SelectedLocation { get; set; } = 0;
+
+        //First name + Last name to make it into full name
+        public static string FirstandLastName(string fn, string ln)
+        {
+            return fn + " " + ln;
+        }
+
         public User(string name)
         {
             Name = name;
         }
-        public int SelectedLocation { get; set; } = 0;
-        public int DefaultLocation { get; set; } = 0;
 
     }
 }

@@ -8,72 +8,71 @@ namespace PizzaStore.UI
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Revature's PizzaStore!");
-            Console.WriteLine("To begin, please enter your name");
-            Console.Write("Name: ");
-            string name = Console.ReadLine();
+            Console.WriteLine("To begin, please enter your first name");
+            Console.Write("First Name: ");
+            string fn = Console.ReadLine();
+            Console.Write("Last Name: ");
+            string ln = Console.ReadLine();
+            string name = User.FirstandLastName(fn, ln);
+
+            //Check if pre-existing user:
+
             Console.WriteLine("Here are our locations:");
             Console.WriteLine("Location 1 - 123 Alpha street");
             Console.WriteLine("Location 2 - 456 Bravo street");
             Console.WriteLine("Location 3 - 789 Charlie street");
             Console.WriteLine("Location 4 - 246 Delta street");
             Console.WriteLine("Location 5 - 135 Echo street");
-            Console.WriteLine("Please enter your preferred location number");
-            Location PreferredLocation = Master.LocationList[int.Parse(Console.ReadLine()) - 1];
-            if (PreferredLocation.UserDict[name] != null)
+            string answer;
+            while (true)
+            {
+                Console.WriteLine("Please enter your preferred location number");
+                answer = Console.ReadLine();
+                if (!int.TryParse(answer, out int n))
+                {
+                    Console.WriteLine("Please enter a number between 1 and 5");
+                }
+                else if (int.Parse(answer) > 1 && int.Parse(answer) < 6)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Not a valid store! Write a number 1 to 5");
+                }
+            }          
+            Location PreferredLocation = Master.LocationList[int.Parse(answer) - 1];
+            string toPrint;
+            //If user exists already:
+            if (PreferredLocation.UserDict.ContainsKey(name))
             {
                 User u = PreferredLocation.UserDict[name];
-                OrderHandler.BeginOrder(name, u, PreferredLocation);
+                if (u.DefaultLocation != PreferredLocation)
+                {
+                    Console.WriteLine($"Your default location is {u.DefaultLocation.LocationID}. Would you like to change it to {PreferredLocation.LocationID}? [y/n]");
+                    string ans = Console.ReadLine();
+                    if (ans == "y")
+                    {
+                        u.DefaultLocation = PreferredLocation;
+                    }
+                }
+                toPrint = OrderHandler.BeginOrder(name, u, PreferredLocation);
             }
             else
             {
-                User u = new User(name);
+                User u = new User(name)
+                {
+                    FirstName = fn,
+                    LastName = ln,
+                    Name = name,
+                    DefaultLocation = PreferredLocation,
+                    SelectedLocation = PreferredLocation
+                    
+                };
                 PreferredLocation.UserDict.Add(name, u);
-                OrderHandler.BeginOrder(name, u, PreferredLocation);
+                toPrint = OrderHandler.BeginOrder(name, u, PreferredLocation);
             }
-           
-            
-
-        //    public void BeginOrder()
-        //    {
-        //        Console.Write("Name: ");
-        //        string Name = Console.ReadLine();
-        //        if (!Tracker.db.ContainsKey(Name))
-        //        {
-        //            Tracker.db.Add(Name, new User());
-        //        }
-
-        //        User u = Tracker.db[Name];
-
-        //        if (u.defaultLocation != 0)
-        //        {
-        //            Console.WriteLine($"Your default location is: {u.defaultLocation}. Do you want to keep it? Answer yes or no");
-        //            string preferred = Console.ReadLine();
-        //            if (preferred == "yes")
-        //            {
-        //                u.selectedLocation = u.defaultLocation;
-        //            }
-        //        }
-        //        if (u.selectedLocation == 0)
-        //        {
-        //            Console.WriteLine("Location 1 - 123 Alpha street");
-        //            Console.WriteLine("Location 2 - 456 Bravo street");
-        //            Console.WriteLine("Location 3 - 789 Charlie street");
-        //            Console.WriteLine("Location 4 - 246 Delta street");
-        //            Console.WriteLine("Location 5 - 135 Echo street");
-        //            Console.WriteLine("Please enter your preferred location number");
-
-        //            string preferredLocation = Console.ReadLine();
-        //            u.selectedLocation = int.Parse(preferredLocation);
-        //            //update the default location if preferred location changed
-        //            u.defaultLocation = u.selectedLocation;
-        //        }
-        //    }
-        //Order curr = new Order();
-        //    curr.BeginOrder();
-
-
-
-
+            Console.WriteLine(toPrint);
         }
     }
 }
