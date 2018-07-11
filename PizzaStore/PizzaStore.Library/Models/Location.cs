@@ -9,6 +9,12 @@ namespace PizzaStore.Library
     {
         // Location ID - an int between 1 to 5
         public int LocationID;
+
+        public Location()
+        {
+
+        }
+
         public Location(int i)
         {
             LocationID = i;
@@ -31,6 +37,9 @@ namespace PizzaStore.Library
 
         // A history of orders
         public List<Order> OrderHistory { get; set; } = new List<Order>();
+
+        // A reference to the user dict
+        public Dictionary<string, User> userDict = Master.UserDict;
 
 
 

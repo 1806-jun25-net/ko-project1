@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PizzaStore.Library.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace PizzaStore.Library
 {
     public class OrderHandler
     {
-        public static string FinalizeOrder(Location l, Order o)
+        public static string FinalizeOrder(Location l, Order o, PizzaStoreRepository repo)
         {
             Console.WriteLine($"Thank you for your order. Your total is ${o.Price}");
             Console.WriteLine("Here are the details of your order:");
@@ -15,12 +16,19 @@ namespace PizzaStore.Library
                 Console.WriteLine($"Pizza {i + 1}:");
                 Console.WriteLine($"Size: { o.PizzaList[i].PizzaSize}");
                 Console.WriteLine("Toppings:");
-                o.PizzaList[i].Toppings.ForEach(Console.WriteLine);
-                Console.WriteLine();
+                foreach (KeyValuePair<string, bool> entry in o.PizzaList[i].Toppings)
+                {
+                    if (entry.Value == true)
+                    {
+                        Console.WriteLine(entry.Key);
+                    }
+                }
             }
 
             o.OrderTime = DateTime.Now;
+            repo.Save();
             l.OrderHistory.Add(o);
+            
             return "Order Finished.";
         }
 
@@ -30,12 +38,19 @@ namespace PizzaStore.Library
             {
                 if (l.Inventory[topping] > 0)
                 {
-                    p.Toppings.Add(topping);
+                    //p.Toppings.Add(topping);
                     //$1 toppings
                     p.Price++;
                     l.Inventory[topping]--;
+                    p.Toppings[topping] = true;
                     Console.WriteLine($"Current toppings for the {p.PizzaSize} pizza is: ");
-                    p.Toppings.ForEach(Console.WriteLine);
+                    foreach (KeyValuePair<string, bool> entry in p.Toppings)
+                    {
+                        if (entry.Value == true)
+                        {
+                            Console.WriteLine(entry.Key);
+                        }
+                    }
                 }
                 else
                 {
@@ -44,14 +59,24 @@ namespace PizzaStore.Library
                 }
             }
         }
-        public static string BeginOrder(string name, User u, Location l)
+        public static string BeginOrder(string name, User u, Location l, PizzaStoreRepository repo)
         {
+
             Order o = new Order
             {
                 User = u,
-                OrderTime = DateTime.Now
+                UserID = repo.GetUserID(u),
+                OrderTime = DateTime.Now,
+                LocationID = l.LocationID,
+                NumPizza = 0,
+                Price = 0
             };
+            repo.AddOrder(o);
+            repo.Save();
+
             //First check if the user ordered within 2 hours
+            if ()
+
             if (l.UserExistInOrderHistory(l.OrderHistory, name))
             {
                 Order latestOrder = l.SortOrderHistory(l.OrderHistoryByUser(l.OrderHistory, name), "latest")[0];
@@ -72,7 +97,7 @@ namespace PizzaStore.Library
                     string more = Console.ReadLine();
                     if (more == "n")
                     {
-                        FinalizeOrder(l, o);
+                        FinalizeOrder(l, o, repo);
                     }
                 }
 
@@ -86,21 +111,27 @@ namespace PizzaStore.Library
                     return "Failed to place order";
                 }
                 //Actually begin to order
-                Pizza p = new Pizza();
+                Pizza p = new Pizza()
+                {
+                    OrderID = repo.GetOrderID()
+                };
                 Console.WriteLine("Please select the size of your pizza [S/M/L]");
                 p.PizzaSize = Console.ReadLine();
                 //Update pizza price based on size
                 if (p.PizzaSize == "S")
                 {
                     p.Price += 10;
+                    p.PizzaSize = "S";
                 }
                 if (p.PizzaSize == "M")
                 {
                     p.Price += 15;
+                    p.PizzaSize = "M";
                 }
                 if (p.PizzaSize == "L")
                 {
                     p.Price += 20;
+                    p.PizzaSize = "L";
                 }
                 Console.WriteLine("We have the following toppings:");
                 l.Toppings.ForEach(Console.WriteLine);
@@ -109,6 +140,8 @@ namespace PizzaStore.Library
                     Console.WriteLine($"Add {l.Toppings[i]}? [y/n]");
                     AddTopping(l, p, l.Toppings[i], Console.ReadLine());
                 }
+                repo.AddPizza(p);
+                repo.Save();
                 o.PizzaList.Add(p);
                 o.Price += p.Price;
                 o.NumPizza++;
@@ -120,7 +153,7 @@ namespace PizzaStore.Library
                     break;
                 }
             }
-            FinalizeOrder(l, o);
+            FinalizeOrder(l, o, repo);
             return "Order Finished.";
         }
     }
