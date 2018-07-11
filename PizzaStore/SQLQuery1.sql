@@ -2,7 +2,7 @@ CREATE SCHEMA PizzaStoreSchema
 
 GO
 
-SELECT * FROM Users;
+-- SELECT * FROM Users;
 
 -- DROP TABLE Users
 CREATE TABLE Users
@@ -14,6 +14,7 @@ CREATE TABLE Users
 );
 
 -- DROP TABLE Locations
+-- SELECT * FROM Locations
 CREATE TABLE Locations
 (
 	Id INT PRIMARY KEY IDENTITY NOT NULL,
@@ -28,9 +29,26 @@ CREATE TABLE Locations
 	Olive INT NOT NULL,
 	Tomato INT NOT NULL
 );
+INSERT INTO Locations (Pepperoni, Chicken, Ham, Sausage, Mushroom, Onion, Pineapple, Jalapeno, Olive, Tomato)
+VALUES (1,1,1,1,1,1,1,1,1,1)
+
+INSERT INTO Locations (Pepperoni, Chicken, Ham, Sausage, Mushroom, Onion, Pineapple, Jalapeno, Olive, Tomato)
+VALUES (2,2,2,2,2,2,2,2,2,2)
+
+INSERT INTO Locations (Pepperoni, Chicken, Ham, Sausage, Mushroom, Onion, Pineapple, Jalapeno, Olive, Tomato)
+VALUES (3,3,3,3,3,3,3,3,3,3)
+
+INSERT INTO Locations (Pepperoni, Chicken, Ham, Sausage, Mushroom, Onion, Pineapple, Jalapeno, Olive, Tomato)
+VALUES (4,4,4,4,4,4,4,4,4,4)
+
+INSERT INTO Locations (Pepperoni, Chicken, Ham, Sausage, Mushroom, Onion, Pineapple, Jalapeno, Olive, Tomato)
+VALUES (5,5,5,5,5,5,5,5,5,5)
+
+-- SELECT * FROM Locations;
 
 
 -- DROP TABLE Orders
+-- SELECT * FROM Orders
 CREATE TABLE Orders
 (
 	Id INT PRIMARY KEY IDENTITY NOT NULL,
@@ -41,6 +59,8 @@ CREATE TABLE Orders
 );
 
 -- DROP TABLE Pizzas
+
+-- SELECT * FROM Pizzas
 CREATE TABLE Pizzas
 (
 	Id INT PRIMARY KEY IDENTITY NOT NULL,

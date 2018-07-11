@@ -23,9 +23,12 @@ namespace PizzaStore.Library
                         Console.WriteLine(entry.Key);
                     }
                 }
+                Console.WriteLine();
+                Console.WriteLine();
             }
 
             o.OrderTime = DateTime.Now;
+            repo.AddOrder(o);
             repo.Save();
             l.OrderHistory.Add(o);
             
@@ -61,6 +64,12 @@ namespace PizzaStore.Library
         }
         public static string BeginOrder(string name, User u, Location l, PizzaStoreRepository repo)
         {
+            Console.WriteLine("View your order history?");
+            string ans = Console.ReadLine();
+            if (ans == "y")
+            {
+                repo.PrintOrderHistory(repo.GetOrdersByUser(u));
+            }
 
             Order o = new Order
             {
@@ -75,20 +84,19 @@ namespace PizzaStore.Library
             repo.Save();
 
             //First check if the user ordered within 2 hours
-            if ()
+            //if ((repo.GetMostRecentOrderByUser(o).OrderTime - o.OrderTime).TotalMinutes < 120)
+            //{
+            //    return $"No, {u.FirstName}, we can't prcoess your order since you have ordered within the past 2 hours.";
+            //}
+            
 
             if (l.UserExistInOrderHistory(l.OrderHistory, name))
             {
-                Order latestOrder = l.SortOrderHistory(l.OrderHistoryByUser(l.OrderHistory, name), "latest")[0];
-                if ((o.OrderTime - latestOrder.OrderTime).TotalMinutes < 120)
-                {
-                    return "We can't process your order. You have ordered within the past 2 hours";
-                }
                 //if the user exists, give a suggestion based on the last order...
                 Pizza Suggested = l.SortOrderHistory(l.OrderHistoryByUser(l.OrderHistory, name), "latest")[0].PizzaList[0];
                 Console.WriteLine($"You have ordered a {Suggested.PizzaSize} with {Suggested.Toppings} in the past. Would you like to add this to your order? [y/n]");
-                string ans = Console.ReadLine();
-                if (ans == "y")
+                string answ = Console.ReadLine();
+                if (answ == "y")
                 {
                     o.PizzaList.Add(Suggested);
                     o.NumPizza++;
@@ -103,11 +111,11 @@ namespace PizzaStore.Library
 
             }
             //Now regardless of user in system or not they can order
-            while (o.NumPizza < 12)
+            while (o.Price < 500)
             {
-                if (o.Price > 500)
+                if (o.NumPizza > 12)
                 {
-                    Console.WriteLine("Cannot order more pizza since order exceeds $500.");
+                    Console.WriteLine("Cannot order more pizza since you are ordering more than 12 pizzas.");
                     return "Failed to place order";
                 }
                 //Actually begin to order

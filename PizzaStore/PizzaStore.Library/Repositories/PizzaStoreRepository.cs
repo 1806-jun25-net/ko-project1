@@ -57,6 +57,7 @@ namespace PizzaStore.Library.Repositories
                     return Mapper.Map(item);
                 }
             }
+            return null;
         }
 
         public int GetUserID(Library.User user)
@@ -83,6 +84,49 @@ namespace PizzaStore.Library.Repositories
         public List<Library.Order> GetOrders()
         {
             return Models.Mapper.Map(_db.Orders.Include(x => x.Location).Include(y => y.User).AsNoTracking());
+        }
+
+        public List<Library.Order> GetOrdersByUser(User u)
+        {
+            var orders = _db.Orders;
+            List<Order> result = new List<Order>();
+            foreach (var item in orders)
+            {
+                if (item.UserId == u.Id)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            return result;
+        }
+
+        public void PrintOrderHistory(List<Order> OrderHistory)
+        {
+            foreach (var item in OrderHistory)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Order ID = {item.OrderID}");
+                Console.WriteLine($"User ID = {item.UserID}");
+                Console.WriteLine($"Location ID = {item.LocationID}");
+                Console.WriteLine($"Order Time = {item.OrderTime}");
+                Console.WriteLine($"Price = {item.LocationID}");
+                Console.WriteLine();
+            }
+        }
+
+        public Order GetMostRecentOrderByUser(Order order)
+        {
+            var orders = _db.Orders;
+            Order result = order;
+            DateTime res = DateTime.MinValue;
+            foreach (var item in orders)
+            {
+                if (order.UserID == item.Id && item.OrderTime > res && item.OrderTime < order.OrderTime)
+                {
+                    result = Mapper.Map(item);
+                }
+            }
+            return result;
         }
 
         public void UpdateOrder(Library.Order order)
