@@ -23,12 +23,12 @@ namespace PizzaStore.Library.Repositories
             _db.Add(Models.Mapper.Map(user));
         }
 
+        //DOESN'T WORK BUT DO WE NEED THIS IMPLEMENTATION...?
         public void DeleteUser(Library.User user)
         {
-            _db.Remove(_db.Users.Find(user));
+            _db.Remove(Mapper.Map(user));
         }
 
-        //DOESNT WORK
         public void UpdateUser(Library.User user)
         {
             _db.Entry(_db.Users.Find(user.Id)).CurrentValues.SetValues(Mapper.Map(user));
@@ -81,6 +81,16 @@ namespace PizzaStore.Library.Repositories
             _db.Add(Models.Mapper.Map(order));
         }
 
+        public void SetUserIdInOrder(User u, Order o)
+        {
+            o.Id = _db.Orders.Find(GetMostRecentOrderByUser(u)).Id;
+        }
+
+        public void UpdateOrder(Library.Order order)
+        {
+            _db.Entry(_db.Orders.Find(order.Id)).CurrentValues.SetValues(Mapper.Map(order));
+        }
+
         public List<Library.Order> GetOrders()
         {
             return Models.Mapper.Map(_db.Orders.Include(x => x.Location).Include(y => y.User).AsNoTracking());
@@ -100,39 +110,54 @@ namespace PizzaStore.Library.Repositories
             return result;
         }
 
+        public void PrintOrderHistory(Order o)
+        {
+
+            Console.WriteLine();
+            Console.WriteLine($"Order ID = {o.Id}");
+            Console.WriteLine($"User ID = {o.UserID}");
+            Console.WriteLine($"Location ID = {o.LocationID}");
+            Console.WriteLine($"Order Time = {o.OrderTime}");
+            Console.WriteLine($"Price = {o.Price}");
+            Console.WriteLine();
+        }
+
         public void PrintOrderHistory(List<Order> OrderHistory)
         {
             foreach (var item in OrderHistory)
             {
                 Console.WriteLine();
-                Console.WriteLine($"Order ID = {item.OrderID}");
+                Console.WriteLine($"Order ID = {item.Id}");
                 Console.WriteLine($"User ID = {item.UserID}");
                 Console.WriteLine($"Location ID = {item.LocationID}");
                 Console.WriteLine($"Order Time = {item.OrderTime}");
-                Console.WriteLine($"Price = {item.LocationID}");
+                Console.WriteLine($"Price = {item.Price}");
                 Console.WriteLine();
             }
         }
 
-        public Order GetMostRecentOrderByUser(Order order)
+        public Order GetMostRecentOrderByUser(User user)
         {
             var orders = _db.Orders;
-            Order result = order;
+            Order result = null;
             DateTime res = DateTime.MinValue;
             foreach (var item in orders)
             {
-                if (order.UserID == item.Id && item.OrderTime > res && item.OrderTime < order.OrderTime)
+                if (user.Id == item.UserId)
                 {
-                    result = Mapper.Map(item);
+                    if (item.OrderTime.CompareTo(res) > 0)
+                    {
+                        result = Mapper.Map(item);
+                        res = item.OrderTime;
+
+                    }
                 }
             }
             return result;
         }
 
-        public void UpdateOrder(Library.Order order)
-        {
-            _db.Entry(_db.Orders.Find(order.OrderID)).CurrentValues.SetValues(Mapper.Map(order));
-        }
+
+
 
         //Locations
 
@@ -147,7 +172,7 @@ namespace PizzaStore.Library.Repositories
             _db.Add(Models.Mapper.Map(pizza));
         }
 
-        public int GetOrderID()
+        public int GetMostRecentOrderID()
         {
             var orders = _db.Orders;
             var RecentOrder = new PizzaStore.Data.Orders()

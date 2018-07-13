@@ -61,7 +61,7 @@ namespace PizzaStore.Library.Models
 
         public static Orders Map(Order o) => new Orders
         {
-            Id = o.OrderID,
+            Id = o.Id,
             UserId = o.UserID,
             OrderTime = o.OrderTime,
             LocationId = o.LocationID,
@@ -70,7 +70,7 @@ namespace PizzaStore.Library.Models
 
         public static Order Map(Orders o) => new Order
         {
-            OrderID = o.Id,
+            Id = o.Id,
             UserID = o.UserId,
             LocationID = o.LocationId,
             OrderTime = o.OrderTime,

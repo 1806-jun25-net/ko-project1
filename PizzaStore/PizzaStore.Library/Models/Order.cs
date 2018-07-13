@@ -6,7 +6,7 @@ namespace PizzaStore.Library
 {
     public class Order
     {
-        public int OrderID { get; set; }
+        public int Id { get; set; }
         public int LocationID { get; set; }
         public User User { get; set; }
         public int UserID { get; set; }

@@ -73,9 +73,13 @@ namespace PizzaStore.UI
                     if (ans == "y")
                     {
                         u.DefaultLocation = PreferredLocation;
+                        PizzaStoreRepo.UpdateUser(u);
+                        PizzaStoreRepo.Save();
                         //UPDATE THE USER HERE AND SAVE TO REPO
                     }
                 }
+                Console.WriteLine($"Your most recent order is:");
+                PizzaStoreRepo.PrintOrderHistory(PizzaStoreRepo.GetMostRecentOrderByUser(u));
                 toPrint = OrderHandler.BeginOrder(name, u, Master.LocationList[PreferredLocation - 1], PizzaStoreRepo);
             }
             else
@@ -90,6 +94,15 @@ namespace PizzaStore.UI
                 Master.UserDict.Add(name, u);
                 PizzaStoreRepo.AddUser(u);
                 PizzaStoreRepo.Save();
+                Console.WriteLine( $"the user id is {PizzaStoreRepo.GetUserID(u)}");
+                Console.WriteLine("Delete this user?");
+                string answe = Console.ReadLine();
+                if (answe == "y")
+                {
+                    PizzaStoreRepo.DeleteUser(u);
+                    PizzaStoreRepo.Save();
+                    return;
+                }
                 toPrint = OrderHandler.BeginOrder(name, u, Master.LocationList[PreferredLocation - 1], PizzaStoreRepo);
             }
             Console.WriteLine(toPrint);

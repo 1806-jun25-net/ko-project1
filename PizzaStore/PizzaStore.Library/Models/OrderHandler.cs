@@ -26,11 +26,9 @@ namespace PizzaStore.Library
                 Console.WriteLine();
                 Console.WriteLine();
             }
-
-            o.OrderTime = DateTime.Now;
-            repo.AddOrder(o);
+            repo.PrintOrderHistory(o);
+            repo.UpdateOrder(o);
             repo.Save();
-            l.OrderHistory.Add(o);
             
             return "Order Finished.";
         }
@@ -80,15 +78,17 @@ namespace PizzaStore.Library
                 NumPizza = 0,
                 Price = 0
             };
+            Console.WriteLine($"The order id - 1 should be: {repo.GetMostRecentOrderID()}");
             repo.AddOrder(o);
             repo.Save();
+            o.Id = repo.GetMostRecentOrderID();
 
             //First check if the user ordered within 2 hours
             //if ((repo.GetMostRecentOrderByUser(o).OrderTime - o.OrderTime).TotalMinutes < 120)
             //{
             //    return $"No, {u.FirstName}, we can't prcoess your order since you have ordered within the past 2 hours.";
             //}
-            
+
 
             if (l.UserExistInOrderHistory(l.OrderHistory, name))
             {
@@ -113,7 +113,7 @@ namespace PizzaStore.Library
             //Now regardless of user in system or not they can order
             while (o.Price < 500)
             {
-                if (o.NumPizza > 12)
+                if (o.NumPizza > 0)
                 {
                     Console.WriteLine("Cannot order more pizza since you are ordering more than 12 pizzas.");
                     return "Failed to place order";
@@ -121,7 +121,7 @@ namespace PizzaStore.Library
                 //Actually begin to order
                 Pizza p = new Pizza()
                 {
-                    OrderID = repo.GetOrderID()
+                    OrderID = repo.GetMostRecentOrderID()
                 };
                 Console.WriteLine("Please select the size of your pizza [S/M/L]");
                 p.PizzaSize = Console.ReadLine();
