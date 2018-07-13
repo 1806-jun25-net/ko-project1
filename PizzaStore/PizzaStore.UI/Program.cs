@@ -26,6 +26,7 @@ namespace PizzaStore.UI
             var PizzaStoreRepo = new PizzaStoreRepository(PizzaStoreDBContext);
 
             Console.WriteLine("Welcome to Revature's PizzaStore!");
+            PizzaStoreRepo.PrintOrderHistory(PizzaStoreRepo.SortByLatest());
             Console.WriteLine("To begin, please enter your Name");
             Console.Write("First Name: ");
             string fn = Console.ReadLine();

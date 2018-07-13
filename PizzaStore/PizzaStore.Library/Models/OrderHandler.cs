@@ -33,7 +33,7 @@ namespace PizzaStore.Library
             return "Order Finished.";
         }
 
-        public static void AddTopping(Location l, Pizza p, string topping, string ans)
+        public static void AddTopping(Location l, Pizza p, string topping, string ans, PizzaStoreRepository repo)
         {
             if (ans == "y")
             {
@@ -44,6 +44,8 @@ namespace PizzaStore.Library
                     p.Price++;
                     l.Inventory[topping]--;
                     p.Toppings[topping] = true;
+                    repo.UpdateInventory(l);
+                    repo.Save();
                     Console.WriteLine($"Current toppings for the {p.PizzaSize} pizza is: ");
                     foreach (KeyValuePair<string, bool> entry in p.Toppings)
                     {
@@ -78,7 +80,6 @@ namespace PizzaStore.Library
                 NumPizza = 0,
                 Price = 0
             };
-            Console.WriteLine($"The order id - 1 should be: {repo.GetMostRecentOrderID()}");
             repo.AddOrder(o);
             repo.Save();
             o.Id = repo.GetMostRecentOrderID();
@@ -93,7 +94,7 @@ namespace PizzaStore.Library
             if (l.UserExistInOrderHistory(l.OrderHistory, name))
             {
                 //if the user exists, give a suggestion based on the last order...
-                Pizza Suggested = l.SortOrderHistory(l.OrderHistoryByUser(l.OrderHistory, name), "latest")[0].PizzaList[0];
+                Pizza Suggested = Location.SortOrderHistory(l.OrderHistoryByUser(l.OrderHistory, name), "latest")[0].PizzaList[0];
                 Console.WriteLine($"You have ordered a {Suggested.PizzaSize} with {Suggested.Toppings} in the past. Would you like to add this to your order? [y/n]");
                 string answ = Console.ReadLine();
                 if (answ == "y")
@@ -113,7 +114,7 @@ namespace PizzaStore.Library
             //Now regardless of user in system or not they can order
             while (o.Price < 500)
             {
-                if (o.NumPizza > 0)
+                if (o.NumPizza > 11)
                 {
                     Console.WriteLine("Cannot order more pizza since you are ordering more than 12 pizzas.");
                     return "Failed to place order";
@@ -121,8 +122,10 @@ namespace PizzaStore.Library
                 //Actually begin to order
                 Pizza p = new Pizza()
                 {
-                    OrderID = repo.GetMostRecentOrderID()
+                    OrderID = repo.GetMostRecentOrderID(),
+                    PizzaSize = "A"
                 };
+                
                 Console.WriteLine("Please select the size of your pizza [S/M/L]");
                 p.PizzaSize = Console.ReadLine();
                 //Update pizza price based on size
@@ -146,10 +149,11 @@ namespace PizzaStore.Library
                 for (var i = 0; i < l.Toppings.Count; i++)
                 {
                     Console.WriteLine($"Add {l.Toppings[i]}? [y/n]");
-                    AddTopping(l, p, l.Toppings[i], Console.ReadLine());
+                    AddTopping(l, p, l.Toppings[i], Console.ReadLine(), repo);
                 }
                 repo.AddPizza(p);
                 repo.Save();
+                p.Id = repo.GetMostRecentPizza().Id;
                 o.PizzaList.Add(p);
                 o.Price += p.Price;
                 o.NumPizza++;

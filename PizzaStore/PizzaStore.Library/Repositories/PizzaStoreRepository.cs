@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using PizzaStore.Library.Models;
+using System.Linq;
 
 namespace PizzaStore.Library.Repositories
 {
@@ -156,22 +157,6 @@ namespace PizzaStore.Library.Repositories
             return result;
         }
 
-
-
-
-        //Locations
-
-        public void AddLocation(Library.Location location)
-        {
-            _db.Add(Models.Mapper.Map(location));
-        }
-
-        //Pizzas
-        public void AddPizza(Library.Pizza pizza)
-        {
-            _db.Add(Models.Mapper.Map(pizza));
-        }
-
         public int GetMostRecentOrderID()
         {
             var orders = _db.Orders;
@@ -189,8 +174,72 @@ namespace PizzaStore.Library.Repositories
             return RecentOrder.Id;
         }
 
+        //Sorting
+
+        
+        public List<Order> SortByLeastExpensive()
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.Price));
+        }
+
+        public List<Order> SortByMostExpensive()
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.Price));
+        }
+
+        public List<Order> SortByEarliest()
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.OrderTime));
+        }
+
+        public List<Order> SortByLatest()
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderByDescending(x => x.OrderTime));
+        }
 
 
+        //Locations
+
+        public void AddLocation(Library.Location location)
+        {
+            _db.Add(Models.Mapper.Map(location));
+        }
+
+        public void UpdateInventory(Library.Location location)
+        {
+            _db.Entry(_db.Locations.Find(location.LocationID)).CurrentValues.SetValues(Mapper.Map(location));
+        }
+
+        //Pizzas
+        public void AddPizza(Library.Pizza pizza)
+        {
+            _db.Add(Models.Mapper.Map(pizza));
+        }
+
+        public void UpdatePizza(Pizza pizza)
+        {
+            _db.Entry(_db.Pizzas.Find(pizza.Id)).CurrentValues.SetValues(Mapper.Map(pizza));
+        }
+
+        public Pizza GetMostRecentPizza()
+        {
+            var Pizzas = _db.Pizzas;
+            var orderId = 0;
+            Pizza result = null;
+            foreach (var item in Pizzas)
+            {
+                if (item.Id > orderId)
+                {
+                    result = Mapper.Map(item);
+                    orderId = item.Id;
+                }
+            }
+            return result;
+        }
 
 
         public void Save()

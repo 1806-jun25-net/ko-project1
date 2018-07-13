@@ -81,7 +81,7 @@ namespace PizzaStore.Library
 
 
         //Using LINQ to sort??
-        public List<Order> SortOrderHistory(List<Order> orderhist, string whichsort)
+        public static List<Order> SortOrderHistory(List<Order> orderhist, string whichsort)
         {
             if (whichsort == "most expensive")
             {

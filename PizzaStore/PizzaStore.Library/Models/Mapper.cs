@@ -27,8 +27,6 @@ namespace PizzaStore.Library.Models
 
         public static Locations Map(Location loc) => new Locations
         {
-            Orders = (ICollection<Orders>)loc.OrderHistory,
-            Users = (ICollection<Users>)loc.userDict,
             Id = loc.LocationID,
             Pepperoni = loc.Inventory["Pepperoni"],
             Chicken = loc.Inventory["Chicken"],
@@ -98,16 +96,16 @@ namespace PizzaStore.Library.Models
             OrderID = p.OrderId,
             PizzaSize = p.PizzaSize,
             Toppings = new Dictionary<string, bool>() {
-                { "Pepperoni", p.Pepperoni },
-                { "Chicken", p.Chicken },
-                { "Ham", p.Ham },
-                { "Sausage", p.Sausage },
-                { "Mushroom", p.Mushroom },
-                { "Onion", p.Onion },
-                { "Pineapple", p.Pineapple },
-                { "Jalapeno", p.Jalapeno },
-                { "Olive", p.Olive },
-                { "Tomato", p.Tomato }}
+                { "Pepperoni", false },
+                { "Chicken", false },
+                { "Ham", false },
+                { "Sausage", false },
+                { "Mushroom", false },
+                { "Onion", false },
+                { "Pineapple", false },
+                { "Jalapeno", false },
+                { "Olive", false },
+                { "Tomato", false }}
         };
 
 
