@@ -1,0 +1,50 @@
+﻿@model PizzaStore.WebApp.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LocationID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumPizza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumPizza)
+        </dd>
+    </dl>
+</div>

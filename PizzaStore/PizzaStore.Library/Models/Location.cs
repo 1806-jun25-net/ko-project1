@@ -39,6 +39,7 @@ namespace PizzaStore.Library
         public List<Order> OrderHistory { get; set; } = new List<Order>();
 
         // A reference to the user dict
+        //superfluous, probably
         public Dictionary<string, User> userDict = Master.UserDict;
 
 

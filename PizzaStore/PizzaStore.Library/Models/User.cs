@@ -12,6 +12,7 @@ namespace PizzaStore.Library
         public string Name { get; set; }
         public int DefaultLocation { get; set; }
 
+
         //First name + Last name to make it into full name
         public static string FirstandLastName(string fn, string ln)
         {

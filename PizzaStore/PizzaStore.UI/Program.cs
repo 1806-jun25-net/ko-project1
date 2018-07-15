@@ -6,7 +6,7 @@ using PizzaStore.Library.Repositories;
 using System;
 using System.IO;
 
-namespace PizzaStore.UI
+namespace PizzaStore.UI 
 {
     class Program
     {
@@ -62,6 +62,7 @@ namespace PizzaStore.UI
                 }
             }
             int PreferredLocation = int.Parse(answer);
+            PizzaStoreRepo.PrintOrderHistory(PizzaStoreRepo.GetOrdersByLocation(PreferredLocation));
             string toPrint;
             //If user exists already:
             if (PizzaStoreRepo.DoesUserExist(fn, ln))

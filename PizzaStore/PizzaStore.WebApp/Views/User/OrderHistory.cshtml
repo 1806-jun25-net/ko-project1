@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Order>
+
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h2>Sorted By Most Recent Orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+
+                <td>
+                    <a asp-controller="Order" asp-action="Details" asp-route-orderid ="item.Id"> Order Details </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -48,6 +48,43 @@ namespace PizzaStore.Library.Repositories
             return false;
         }
 
+        public User GetUser(int id)
+        {
+            var users = _db.Users;
+            foreach (var item in users)
+            {
+                if (item.Id == id)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
+        }
+
+        public List<Library.User> GetUsers(string search = null)
+        {
+            var users = _db.Users;
+            List<User> result = new List<User>();
+            if (search == null)
+            {
+                foreach (var item in users)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            else
+            {
+                foreach (var item in users)
+                {
+                    if (item.FirstName.Contains(search) || item.LastName.Contains(search))
+                    {
+                        result.Add(Mapper.Map(item));
+                    }
+                }
+            }
+            return result;
+        }
+
         public User GetUser(string first, string last)
         {
             var users = _db.Users;
@@ -74,6 +111,17 @@ namespace PizzaStore.Library.Repositories
             }
             return 0;
         }
+        
+        public List<User> GetUsers()
+        {
+            var users = _db.Users;
+            List<User> result = new List<User>();
+            foreach (var item in users)
+            {
+                result.Add(Mapper.Map(item));
+            }
+            return result;
+        }
 
         //Orders
 
@@ -97,6 +145,30 @@ namespace PizzaStore.Library.Repositories
             return Models.Mapper.Map(_db.Orders.Include(x => x.Location).Include(y => y.User).AsNoTracking());
         }
 
+        public List<Library.Order> GetOrders(string search = null)
+        {
+            var orders = _db.Orders;
+            List<Order> result = new List<Order>();
+            if (search == null)
+            {
+                foreach (var item in orders)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            else
+            {
+                foreach (var item in orders)
+                {
+                    if (item.User.FirstName.Contains(search) || item.User.LastName.Contains(search))
+                    {
+                        result.Add(Mapper.Map(item));
+                    }
+                }
+            }
+            return result;
+        }
+
         public List<Library.Order> GetOrdersByUser(User u)
         {
             var orders = _db.Orders;
@@ -109,6 +181,33 @@ namespace PizzaStore.Library.Repositories
                 }
             }
             return result;
+        }
+
+        public List<Library.Order> GetOrdersByUserID(int i)
+        {
+            var orders = _db.Orders;
+            List<Order> result = new List<Order>();
+            foreach (var item in orders)
+            {
+                if (item.UserId == i)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            return result;
+        }
+
+        public Order GetOrderById(int i)
+        {
+            var orders = _db.Orders;
+            foreach (var item in orders)
+            {
+                if (item.Id == i)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
         }
 
         public void PrintOrderHistory(Order o)
@@ -201,6 +300,11 @@ namespace PizzaStore.Library.Repositories
             return Mapper.Map(orders.OrderByDescending(x => x.OrderTime));
         }
 
+        public List<Order> SortByLatest(List<Order> orders)
+        {
+            return Mapper.Map(Mapper.Map(orders).OrderByDescending(x => x.OrderTime));
+        }
+
 
         //Locations
 
@@ -214,6 +318,20 @@ namespace PizzaStore.Library.Repositories
             _db.Entry(_db.Locations.Find(location.LocationID)).CurrentValues.SetValues(Mapper.Map(location));
         }
 
+        public List<Library.Order> GetOrdersByLocation(int location)
+        {
+            var orders = _db.Orders;
+            List<Order> result = new List<Order>();
+            foreach (var item in orders)
+            {
+                if (item.LocationId == location)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            return result;
+        }
+
         //Pizzas
         public void AddPizza(Library.Pizza pizza)
         {
@@ -223,6 +341,20 @@ namespace PizzaStore.Library.Repositories
         public void UpdatePizza(Pizza pizza)
         {
             _db.Entry(_db.Pizzas.Find(pizza.Id)).CurrentValues.SetValues(Mapper.Map(pizza));
+        }
+        
+        public List<Pizza> GetPizzasByOrderId(int orderid)
+        {
+            var pizzas = _db.Pizzas;
+            List<Pizza> result = new List<Pizza>();
+            foreach (var item in pizzas)
+            {
+                if (item.Id == orderid)
+                {
+                    result.Add(Mapper.Map(item));
+                }
+            }
+            return result;
         }
 
         public Pizza GetMostRecentPizza()

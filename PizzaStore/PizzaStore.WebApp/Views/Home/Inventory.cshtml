@@ -1,0 +1,35 @@
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Location>
+
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h2>Inventory of the Store</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var item in Model)
+            {
+                @foreach(var topping in item.Inventory)
+                {
+                    @Html.DisplayNameFor(model => topping)
+                }
+
+            }
+        </tr>
+    </thead>
+    </table>
+    @*<tbody>  
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>*@
