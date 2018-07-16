@@ -11,23 +11,23 @@
     @Html.HiddenFor(model => model.DefaultLocation)
 
     <h3>Size</h3>
-    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "S") Small</h5>
-    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "M") Medium </h5>
-    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "L") Large </h5>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "S") Small ($10)</h5>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "M") Medium ($15)</h5>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "L") Large ($20)</h5>
 
     <br />
     <br />
     <h3>Toppings</h3>
-    <h5>@Html.CheckBoxFor(m => m.Pepperoni, true) Pepperoni</h5>
-    <h5>@Html.CheckBoxFor(m => m.Chicken, true) Chicken</h5>
-    <h5>@Html.CheckBoxFor(m => m.Ham, true) Ham</h5>
-    <h5>@Html.CheckBoxFor(m => m.Sausage, true) Sausage</h5>
-    <h5>@Html.CheckBoxFor(m => m.Mushroom, true) Mushroom</h5>
-    <h5>@Html.CheckBoxFor(m => m.Onion, true) Onion</h5>
-    <h5>@Html.CheckBoxFor(m => m.Pineapple, true) Pineapple</h5>
-    <h5>@Html.CheckBoxFor(m => m.Jalapeno, true) Jalapeno</h5>
-    <h5>@Html.CheckBoxFor(m => m.Olive, true) Olive</h5>
-    <h5>@Html.CheckBoxFor(m => m.Tomato, true) Tomato</h5>
+    <h5>@Html.CheckBoxFor(m => m.Pepperoni, true) Pepperoni (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Chicken, true) Chicken (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Ham, true) Ham (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Sausage, true) Sausage (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Mushroom, true) Mushroom (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Onion, true) Onion (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Pineapple, true) Pineapple (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Jalapeno, true) Jalapeno (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Olive, true) Olive (add $1)</h5>
+    <h5>@Html.CheckBoxFor(m => m.Tomato, true) Tomato (add $1)</h5>
 
     <br />
     <br />
@@ -44,7 +44,7 @@ new SelectListItem { Text = "8", Value = "8" },
 new SelectListItem { Text = "9", Value = "9" },
 new SelectListItem { Text = "10", Value = "10" },
 new SelectListItem { Text = "11", Value = "11" },
-new SelectListItem { Text = "12", Value = "12" } }, "Number")
+new SelectListItem { Text = "12", Value = "12" } })
     <br />
     <br />
     <input type="submit" />

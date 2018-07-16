@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Library", "PizzaStore.Library\PizzaStore.Library.csproj", "{A8D4B225-7EC6-472C-BF03-5497300C8629}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Test", "PizzaStore.Test\PizzaStore.Test.csproj", "{106E1E22-DB51-40E9-A6D2-BCCBF97959FC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.UI", "PizzaStore.UI\PizzaStore.UI.csproj", "{2D78CEEC-5ED6-4A11-AA4A-CC57B97B8BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.Data", "PizzaStore.Data\PizzaStore.Data.csproj", "{4DC4B0EF-BDFC-4FA8-9055-3E34F315DFF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStore.WebApp", "PizzaStore.WebApp\PizzaStore.WebApp.csproj", "{E8A1E86B-0B62-4882-945A-EB1370717667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStore.WebApp", "PizzaStore.WebApp\PizzaStore.WebApp.csproj", "{E8A1E86B-0B62-4882-945A-EB1370717667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStoreDBTest", "PizzaStoreDBTest\PizzaStoreDBTest.csproj", "{FC0B37CA-9354-4504-94C3-CA22E3B2D92E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{A8D4B225-7EC6-472C-BF03-5497300C8629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8D4B225-7EC6-472C-BF03-5497300C8629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8D4B225-7EC6-472C-BF03-5497300C8629}.Release|Any CPU.Build.0 = Release|Any CPU
-		{106E1E22-DB51-40E9-A6D2-BCCBF97959FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{106E1E22-DB51-40E9-A6D2-BCCBF97959FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{106E1E22-DB51-40E9-A6D2-BCCBF97959FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{106E1E22-DB51-40E9-A6D2-BCCBF97959FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D78CEEC-5ED6-4A11-AA4A-CC57B97B8BAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2D78CEEC-5ED6-4A11-AA4A-CC57B97B8BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D78CEEC-5ED6-4A11-AA4A-CC57B97B8BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{E8A1E86B-0B62-4882-945A-EB1370717667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8A1E86B-0B62-4882-945A-EB1370717667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8A1E86B-0B62-4882-945A-EB1370717667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC0B37CA-9354-4504-94C3-CA22E3B2D92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC0B37CA-9354-4504-94C3-CA22E3B2D92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC0B37CA-9354-4504-94C3-CA22E3B2D92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC0B37CA-9354-4504-94C3-CA22E3B2D92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

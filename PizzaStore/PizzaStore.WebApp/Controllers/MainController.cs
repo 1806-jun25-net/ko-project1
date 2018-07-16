@@ -81,6 +81,14 @@ namespace PizzaStore.WebApp.Controllers
                         { "Tomato", psv.Tomato }
                 }
             };
+            foreach (var topping in newWebPizza.Toppings)
+            {
+                if (topping.Value == true)
+                {
+                    Repo.GetLocation(psv.DefaultLocation).Inventory[topping.Key]--;
+                    Repo.Save();
+                }
+            }
             psv.Price = Repo.AddPrice(newWebPizza) * psv.NumPizza;
             newWebOrder.Price = psv.Price;
             Repo.AddOrder(newWebOrder);

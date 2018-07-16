@@ -14,11 +14,11 @@
             <tr>
                 <tr>First Name: </tr>
                 <tr>
-                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { required = "required" })
                 </tr>
                 <tr>Last Name: </tr>
                 <tr>
-                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { required = "required" })
                 </tr>
                 <tr>
                     Preferred Location:
@@ -29,7 +29,7 @@
                      new SelectListItem{Text="Location 2: 456 Bravo St.", Value="2"},
                    new SelectListItem{Text="Location 3: 789 Charlie St.", Value="3"},
                    new SelectListItem{Text="Location 4: 135 Delta St.", Value="4"},
-                   new SelectListItem{Text="Location 5: 246 Echo St.", Value="5"}}, "Select Location")
+                   new SelectListItem{Text="Location 5: 246 Echo St.", Value="5"}})
                 </tr>
             <tr>
                 <td></td>
