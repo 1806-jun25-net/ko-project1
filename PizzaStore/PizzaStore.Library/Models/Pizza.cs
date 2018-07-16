@@ -6,8 +6,8 @@ namespace PizzaStore.Library
 {
     public class Pizza
     {
-        public int Id;
-        public int OrderID;
+        public int Id { get; set; }
+        public int OrderID { get; set; }
         public string PizzaSize { get; set; }
         public Dictionary<string, bool> Toppings { get; set; } = new Dictionary<string, bool>()
         {

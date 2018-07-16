@@ -98,6 +98,19 @@ namespace PizzaStore.Library.Repositories
             return null;
         }
 
+        public bool UserExists(string first, string last)
+        {
+            var users = _db.Users;
+            foreach (var item in users)
+            {
+                if (first == item.FirstName && last == item.LastName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public int GetUserID(Library.User user)
         {
 
@@ -305,6 +318,12 @@ namespace PizzaStore.Library.Repositories
             return Mapper.Map(Mapper.Map(orders).OrderByDescending(x => x.OrderTime));
         }
 
+        public List<Order> SortByLocation()
+        {
+            var orders = _db.Orders;
+            return Mapper.Map(orders.OrderBy(x => x.LocationId));
+        }
+
 
         //Locations
 
@@ -316,6 +335,30 @@ namespace PizzaStore.Library.Repositories
         public void UpdateInventory(Library.Location location)
         {
             _db.Entry(_db.Locations.Find(location.LocationID)).CurrentValues.SetValues(Mapper.Map(location));
+        }
+
+        public Location GetLocation(int i)
+        {
+            var locations = _db.Locations;
+            foreach (var item in locations)
+            {
+                if (item.Id == i)
+                {
+                    return Mapper.Map(item);
+                }
+            }
+            return null;
+        }
+
+        public List<Location> GetLocations()
+        {
+            var locations = _db.Locations;
+            List<Location> result = new List<Location>();
+            foreach (var item in locations)
+            {
+                result.Add(Mapper.Map(item));
+            }
+            return result;
         }
 
         public List<Library.Order> GetOrdersByLocation(int location)
@@ -343,13 +386,13 @@ namespace PizzaStore.Library.Repositories
             _db.Entry(_db.Pizzas.Find(pizza.Id)).CurrentValues.SetValues(Mapper.Map(pizza));
         }
         
-        public List<Pizza> GetPizzasByOrderId(int orderid)
+        public IEnumerable<Pizza> GetPizzasByOrderId(int orderid)
         {
             var pizzas = _db.Pizzas;
             List<Pizza> result = new List<Pizza>();
             foreach (var item in pizzas)
             {
-                if (item.Id == orderid)
+                if (item.OrderId == orderid)
                 {
                     result.Add(Mapper.Map(item));
                 }
@@ -371,6 +414,31 @@ namespace PizzaStore.Library.Repositories
                 }
             }
             return result;
+        }
+
+        public decimal AddPrice(Pizza p)
+        {
+            var price = 0;
+            if (p.PizzaSize == "S")
+            {
+                price += 10;
+            }
+            if (p.PizzaSize == "M")
+            {
+                price += 15;
+            }
+            if (p.PizzaSize == "L")
+            {
+                price += 20;
+            }
+            foreach (var item in p.Toppings)
+            {
+                if (item.Value == true)
+                {
+                    price += 1;
+                }
+            }
+            return price;
         }
 
 

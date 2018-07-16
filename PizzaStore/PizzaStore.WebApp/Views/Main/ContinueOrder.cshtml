@@ -1,0 +1,51 @@
+﻿@model PizzaStore.WebApp.Models.PizzaStoreView
+@{
+    ViewData["Title"] = "Continue Order";
+}
+
+@using (Html.BeginForm("FinishOrder", "Main", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.FirstName)
+    @Html.HiddenFor(model => model.LastName)
+    @Html.HiddenFor(model => model.DefaultLocation)
+
+    <h3>Size</h3>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "S") Small</h5>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "M") Medium </h5>
+    <h5>@Html.RadioButtonFor(m => m.PizzaSize, "L") Large </h5>
+
+    <br />
+    <br />
+    <h3>Toppings</h3>
+    <h5>@Html.CheckBoxFor(m => m.Pepperoni, true) Pepperoni</h5>
+    <h5>@Html.CheckBoxFor(m => m.Chicken, true) Chicken</h5>
+    <h5>@Html.CheckBoxFor(m => m.Ham, true) Ham</h5>
+    <h5>@Html.CheckBoxFor(m => m.Sausage, true) Sausage</h5>
+    <h5>@Html.CheckBoxFor(m => m.Mushroom, true) Mushroom</h5>
+    <h5>@Html.CheckBoxFor(m => m.Onion, true) Onion</h5>
+    <h5>@Html.CheckBoxFor(m => m.Pineapple, true) Pineapple</h5>
+    <h5>@Html.CheckBoxFor(m => m.Jalapeno, true) Jalapeno</h5>
+    <h5>@Html.CheckBoxFor(m => m.Olive, true) Olive</h5>
+    <h5>@Html.CheckBoxFor(m => m.Tomato, true) Tomato</h5>
+
+    <br />
+    <br />
+
+    <h3>How many Pizzas: </h3> @Html.DropDownListFor(m => m.NumPizza, new List<SelectListItem>
+{ new SelectListItem{Text="1", Value="1"},
+new SelectListItem{Text="2", Value="2"},
+new SelectListItem{Text="3", Value="3"},
+new SelectListItem{Text="4", Value="4"},
+new SelectListItem{Text="5", Value="5"},
+new SelectListItem { Text = "6", Value = "6" },
+new SelectListItem { Text = "7", Value = "7" },
+new SelectListItem { Text = "8", Value = "8" },
+new SelectListItem { Text = "9", Value = "9" },
+new SelectListItem { Text = "10", Value = "10" },
+new SelectListItem { Text = "11", Value = "11" },
+new SelectListItem { Text = "12", Value = "12" } }, "Number")
+    <br />
+    <br />
+    <input type="submit" />
+}

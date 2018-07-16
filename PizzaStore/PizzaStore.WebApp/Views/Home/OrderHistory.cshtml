@@ -4,23 +4,8 @@
     ViewData["Title"] = "Order";
 }
 
-<h2>Sorted By Least Recent Orders</h2>
+<h2>Sorted By Most Recent Orders</h2>
 
-<p>
-    <a asp-action="MostExpensive">Sort By Most Expensive Orders</a>
-</p>
-<p>
-    <a asp-action="LeastExpensive">Sort By Least Expensive Orders</a>
-</p>
-<p>
-    <a asp-action="MostRecent">Sort By Most Recent Orders</a>
-</p>
-<p>
-    <a asp-action="LeastRecent">Sort By Least Recent Orders</a>
-</p>
-<p>
-    <a asp-action="ByLocation">Sort By Locations</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -58,7 +43,7 @@
 
 
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @Html.ActionLink("Order Details", "OrderDetails", new { id = item.Id })
                 </td>
             </tr>
         }

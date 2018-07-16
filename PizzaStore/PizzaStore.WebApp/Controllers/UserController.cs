@@ -39,7 +39,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -63,22 +62,27 @@ namespace PizzaStore.WebApp.Controllers
             return View(webUser);
         }
 
-        //public ActionResult OrderDetails(int orderid)
-        //{
-        //    var libUser = Repo.GetOrderById(orderid);
-        //    var webUSer = new Order
-        //    {
-        //        Id = libUser.Id,
-        //        LocationID = libUser.LocationID,
-        //        User = libUser.User,
-        //        UserID = libUser.UserID,
-        //        OrderTime = libUser.OrderTime,
-        //        PizzaList = libUser.PizzaList,
-        //        Price = libUser.Price,
-        //        NumPizza = libUser.NumPizza
-        //    };
-        //    return View(webUSer);
-        //}
+        public ActionResult OrderDetails(int orderid)
+        {
+            var libPizza = Repo.GetPizzasByOrderId(orderid);
+            var webPizza = libPizza.Select(x => new Pizza
+            {
+                Id = x.Id,
+                OrderID = x.OrderID,
+                PizzaSize = x.PizzaSize,
+                Pepperoni = x.Toppings["Pepperoni"],
+                Chicken = x.Toppings["Chicken"],
+                Ham = x.Toppings["Ham"],
+                Sausage = x.Toppings["Sausage"],
+                Mushroom = x.Toppings["Mushroom"],
+                Onion = x.Toppings["Onion"],
+                Pineapple = x.Toppings["Pineapple"],
+                Jalapeno = x.Toppings["Jalapeno"],
+                Olive = x.Toppings["Olive"],
+                Tomato = x.Toppings["Tomato"],
+            });
+            return View(webPizza);
+        }
 
         // GET: User/Create
         public ActionResult Create()

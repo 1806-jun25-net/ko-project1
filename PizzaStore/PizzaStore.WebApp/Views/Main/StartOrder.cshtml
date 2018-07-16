@@ -1,0 +1,41 @@
+﻿@model PizzaStore.WebApp.Models.PizzaStoreView
+@{
+    ViewData["Title"] = "StartOrder";
+}
+
+<h2>New Order</h2>
+<br />
+<br />
+<br />
+<body>
+    @using (Html.BeginForm("Index", "Main", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <tr>First Name: </tr>
+                <tr>
+                    @Html.TextBoxFor(m => m.FirstName)
+                </tr>
+                <tr>Last Name: </tr>
+                <tr>
+                    @Html.TextBoxFor(m => m.LastName)
+                </tr>
+                <tr>
+                    Preferred Location:
+                </tr>
+                <tr>
+                    @Html.DropDownListFor(m => m.DefaultLocation, new List<SelectListItem>
+                   { new SelectListItem{Text="Location 1: 123 Alpha St.", Value="1"},
+                     new SelectListItem{Text="Location 2: 456 Bravo St.", Value="2"},
+                   new SelectListItem{Text="Location 3: 789 Charlie St.", Value="3"},
+                   new SelectListItem{Text="Location 4: 135 Delta St.", Value="4"},
+                   new SelectListItem{Text="Location 5: 246 Echo St.", Value="5"}}, "Select Location")
+                </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    }
+</body>
+

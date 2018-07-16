@@ -10,7 +10,6 @@ namespace PizzaStore.WebApp.Models
     {
         public int Id { get; set; }
         public int LocationID { get; set; }
-        public Library.User User { get; set; }
         public int UserID { get; set; }
         public DateTime OrderTime { get; set; }
         public List<Library.Pizza> PizzaList { get; set; }

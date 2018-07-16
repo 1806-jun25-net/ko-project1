@@ -43,10 +43,11 @@
 
 
                 <td>
-                    <a asp-controller="Order" asp-action="Details" asp-route-orderid ="item.Id"> Order Details </a>
+                    @Html.ActionLink("Order Details", "OrderDetails", new { id = item.Id })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<a asp-action="Index">Back to List</a>
 

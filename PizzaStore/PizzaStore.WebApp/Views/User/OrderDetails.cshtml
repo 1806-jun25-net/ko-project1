@@ -1,50 +1,105 @@
-﻿@model PizzaStore.WebApp.Models.Order
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Pizza>
 
 @{
-    ViewData["Title"] = "Order Details";
+    ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Order Details</h2>
 
 <div>
-    <h4>Order</h4>
+    <h4>Pizzas</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LocationID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LocationID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OrderTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NumPizza)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NumPizza)
-        </dd>
-    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PizzaSize)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pepperoni)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Chicken)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ham)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sausage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Mushroom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Onion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pineapple)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Jalapeno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Olive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tomato)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PizzaSize)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pepperoni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chicken)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sausage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mushroom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Onion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pineapple)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Jalapeno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Olive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tomato)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

@@ -93,19 +93,20 @@ namespace PizzaStore.Library.Models
 
         public static Pizza Map(Pizzas p) => new Pizza
         {
+            Id = p.Id,
             OrderID = p.OrderId,
             PizzaSize = p.PizzaSize,
             Toppings = new Dictionary<string, bool>() {
-                { "Pepperoni", false },
-                { "Chicken", false },
-                { "Ham", false },
-                { "Sausage", false },
-                { "Mushroom", false },
-                { "Onion", false },
-                { "Pineapple", false },
-                { "Jalapeno", false },
-                { "Olive", false },
-                { "Tomato", false }}
+                { "Pepperoni", p.Pepperoni },
+                { "Chicken", p.Chicken },
+                { "Ham", p.Ham },
+                { "Sausage", p.Sausage },
+                { "Mushroom", p.Mushroom },
+                { "Onion", p.Onion },
+                { "Pineapple", p.Pineapple },
+                { "Jalapeno", p.Jalapeno },
+                { "Olive", p.Olive },
+                { "Tomato", p.Tomato }}
         };
 
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PizzaStore.Library.Models;
+using lib = PizzaStore.Library.Models;
 using PizzaStore.Library.Repositories;
 using PizzaStore.WebApp.Models;
 
@@ -27,7 +27,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -44,7 +43,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -61,7 +59,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -78,7 +75,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -95,7 +91,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = x.Id,
                 LocationID = x.LocationID,
-                User = x.User,
                 UserID = x.UserID,
                 OrderTime = x.OrderTime,
                 PizzaList = x.PizzaList,
@@ -105,15 +100,30 @@ namespace PizzaStore.WebApp.Controllers
             return View(webOrders);
         }
 
-        // GET: Order/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ByLocation([FromQuery]string search = null)
+        {
+            var libOrders = Repo.SortByLocation();
+            var webOrders = libOrders.Select(x => new Order
+            {
+                Id = x.Id,
+                LocationID = x.LocationID,
+                UserID = x.UserID,
+                OrderTime = x.OrderTime,
+                PizzaList = x.PizzaList,
+                Price = x.Price,
+                NumPizza = x.NumPizza
+            });
+            return View(webOrders);
+        }
+
+            // GET: Order/Details/5
+            public ActionResult Details(int id)
         {
             var libPizza = Repo.GetPizzasByOrderId(id);
             var webPizza = libPizza.Select(x => new Pizza
             {
                 Id = x.Id,
-                OrderID = x.OrderID,
-                Price = x.Price,
+                OrderID = x.OrderID, 
                 PizzaSize = x.PizzaSize,
                 Pepperoni = x.Toppings["Pepperoni"],
                 Chicken = x.Toppings["Chicken"],
@@ -148,7 +158,6 @@ namespace PizzaStore.WebApp.Controllers
                     {
                         Id = order.Id,
                         LocationID = order.LocationID,
-                        User = order.User,
                         UserID = order.UserID,
                         OrderTime = order.OrderTime,
                         PizzaList = order.PizzaList,
@@ -176,7 +185,6 @@ namespace PizzaStore.WebApp.Controllers
             {
                 Id = libOrders.Id,
                 LocationID = libOrders.LocationID,
-                User = libOrders.User,
                 UserID = libOrders.UserID,
                 OrderTime = libOrders.OrderTime,
                 PizzaList = libOrders.PizzaList,
@@ -199,7 +207,6 @@ namespace PizzaStore.WebApp.Controllers
                     {
                         Id = order.Id,
                         LocationID = order.LocationID,
-                        User = order.User,
                         UserID = order.UserID,
                         OrderTime = order.OrderTime,
                         PizzaList = order.PizzaList,

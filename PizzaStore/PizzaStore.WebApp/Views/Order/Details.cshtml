@@ -1,58 +1,55 @@
-﻿@model List<PizzaStore.WebApp.Models.Pizza>
+﻿@model IEnumerable<PizzaStore.WebApp.Models.Pizza>
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Order Details</h2>
 
 <div>
-    <h4>Order</h4>
+    <h4>Pizzas</h4>
     <hr />
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Id)
+                    @Html.DisplayNameFor(model => model.Id)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].OrderID)
+                    @Html.DisplayNameFor(model => model.OrderID)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].PizzaSize)
+                    @Html.DisplayNameFor(model => model.PizzaSize)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Price)
+                    @Html.DisplayNameFor(model => model.Pepperoni)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Pepperoni)
+                    @Html.DisplayNameFor(model => model.Chicken)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Chicken)
+                    @Html.DisplayNameFor(model => model.Ham)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Ham)
+                    @Html.DisplayNameFor(model => model.Sausage)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Sausage)
+                    @Html.DisplayNameFor(model => model.Mushroom)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Mushroom)
+                    @Html.DisplayNameFor(model => model.Onion)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Onion)
+                    @Html.DisplayNameFor(model => model.Pineapple)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Pineapple)
+                    @Html.DisplayNameFor(model => model.Jalapeno)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Jalapeno)
+                    @Html.DisplayNameFor(model => model.Olive)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model[0].Olive)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model[0].Tomato)
+                    @Html.DisplayNameFor(model => model.Tomato)
                 </th>
                 <th></th>
             </tr>
@@ -60,60 +57,50 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PizzaSize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pepperoni)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Chicken)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ham)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Sausage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Mushroom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Onion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pineapple)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Jalapeno)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Olive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tomato)
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PizzaSize)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pepperoni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Chicken)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sausage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mushroom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Onion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pineapple)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Jalapeno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Olive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tomato)
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
-</div>
-<div>
-    <a asp-action="MostExpensive">Back to Most Expensive</a>
-    <br />
-    <a asp-action="LeastExpensive">Back to Least Expensive</a>
-    <br />
-    <a asp-action="MostRecent">Back to Most Recent</a>
-    <br />
-    <a asp-action="LeastRecent">Back to Least Recent</a>
+    <a asp-action="MostRecent">Back to List</a>
 </div>
